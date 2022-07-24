@@ -12,6 +12,16 @@ export class ProductService {
   
   constructor(private HttpClient:HttpClient) { }
 
+
+
+  getProductListByPagination(thePageNumber:number,thePageSize:number,currentCategoryId:number): Observable<GetResponse> {
+
+    console.log("thePageNumber "+(thePageNumber) + " thePageSize"+thePageSize+" currentCategoryId"+currentCategoryId)
+
+    const searchUrl=`${this.baseUrl}/search/findByCategoryId?id=${currentCategoryId}&page=${thePageNumber}&size=${thePageSize}`;
+     return this.HttpClient.get<GetResponse>(searchUrl);
+}
+
   getProductList(theCategoryId:number): Observable<Product[]> {
 
         const searchUrl=`${this.baseUrl}/search/findByCategoryId?id=${theCategoryId}`;
@@ -36,6 +46,12 @@ export class ProductService {
 interface GetResponse{
   _embedded:{
     products:Product[]
+  },
+  page : {
+    size : number,
+    totalElements : number,
+    totalPages : number,
+    number : number
   }
 }
 

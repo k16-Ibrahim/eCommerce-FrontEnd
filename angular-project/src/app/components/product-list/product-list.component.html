@@ -4,6 +4,7 @@
             <div class="row">
                 <div *ngFor="let product of products" class="col-md-3">
 
+
                     <div class="product-box">
                         <a routerLink="/products/{{product.id}}">
                             <img src=" {{product.imageUrl}} " height="50" />
@@ -16,8 +17,32 @@
                     </div>
 
                 </div>
-    
+                <div *ngIf="products?.length==0" class="alert alert-warning col-md-12">
+                    No products Found
+                </div>
             </div>
+
+
+            <div class="footer-pagination">
+                <div class="row">
+                    <div class="col-md-6">
+
+                    </div>
+                    <div class="col-md-6">
+                        <div class="row">
+                            <div class="col-md-9">
+                                <ngb-pagination [(page)]="thePageNumber"
+                                [pageSize]="thePageSize"
+                                [collectionSize]="theTotalElements"
+                                (pageChange)="listProducts()">
+                                  </ngb-pagination>
+                            </div>    
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
         </div>
     </div>
 </div>   
