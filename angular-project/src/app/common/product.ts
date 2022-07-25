@@ -1,13 +1,13 @@
 export class Product {
 
-    id!:Number;
+    id!:number;
     sku!: String;
     name!: String;
     description!: String;
-    unitPrice!:Number;
+    unitPrice!:number;
     imageUrl!:String;
     active!:boolean;
-    unitsInStock!:Number;
+    unitsInStock!:number;
     DateCreated!:Date;
     last_updated!:Date;
 
