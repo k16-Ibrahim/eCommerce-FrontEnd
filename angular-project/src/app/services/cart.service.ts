@@ -14,6 +14,25 @@ export class CartService {
 
   constructor() { }
 
+
+  remove(cartItem:CartItem){
+      cartItem.quantity--;
+      if(cartItem.quantity==0){
+        this.removeItem(cartItem)
+      }else{
+        this.computeCartTools()
+      }
+  }
+
+  removeItem(cartItem:CartItem){
+    const itemIndex=this.cartItems.findIndex(i=>i.id==cartItem.id);
+    if(itemIndex>-1){
+      this.cartItems.splice(itemIndex,1)
+      this.computeCartTools()
+    }
+  }
+
+
     addToCart(cartItem:CartItem){
 
 
@@ -22,21 +41,23 @@ export class CartService {
 
       if(this.cartItems.length>0){
 
-        this.cartItems.find(tempCartItem=>tempCartItem.id===cartItem.id)
+//        this.cartItems.find(tempCartItem=>tempCartItem.id===cartItem.id)
 
-        // for(let tempCartItem of this.cartItems ){
-        //     if(tempCartItem.id==cartItem.id){
-        //       existingCartItem=tempCartItem;
-        //       break;
-        //     }
-        // }
+        for(let tempCartItem of this.cartItems ){
+            if(tempCartItem.id==cartItem.id){
+              existingCartItem=tempCartItem;
+              break;
+            }
+        }
       }
       alreadyExistingCartItem=(existingCartItem!=undefined);
       if(alreadyExistingCartItem){
-        console.log(existingCartItem.quantity+" existingCartItem")      
         existingCartItem.quantity++;
+        console.log(existingCartItem+" existingCartItem Quantity")      
       }else{
          this.cartItems.push(cartItem);
+         console.log(cartItem+" cartItem")      
+
       }
       this.computeCartTools();
 
@@ -56,8 +77,8 @@ export class CartService {
     }
 
     logCartData(totalPriceValue:number,totalQuantityValue:number){
-      console.log(`totalPrice: ${totalPriceValue.toFixed(2)}, totalQuantityValue: ${totalQuantityValue}`);
-      console.log('-------');
+      // console.log(`totalPrice: ${totalPriceValue.toFixed(2)}, totalQuantityValue: ${totalQuantityValue}`);
+      // console.log('-------');
     }
 
 
